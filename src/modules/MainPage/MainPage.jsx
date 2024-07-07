@@ -11,20 +11,12 @@ function HomePage () {
     const [clickY, setClickY] = useState(0);
     const [menuPopup, setMenuPopup] = useState(false);
 
-    // const [img, setImg] = useState()
-    
-    // const loadImg = (img) => {
-    //     setImg(img);
-    // }
-
-    const imgSize = (el) => {
+    const searchPointer = (el) => {
         if (!el) {
             console.log("No image");
         } else {
 
         const boundClient = el.target.getBoundingClientRect();
-        // const x = el.clientX - boundClient.left + window.scrollX;
-        // const y = el.clientY - boundClient.top + window.scrollY;
         const x = el.clientX + window.scrollX;
         const y = el.clientY + window.scrollY;    
         setImgWidth(boundClient.width);
@@ -38,25 +30,12 @@ function HomePage () {
 
 
         setMenuPopup(true);
-        // coOrdinateclicks(x, y)
 
 
         console.log(`Size: Height ${imgHeight} Width ${imgWidth} Co Ords: X: ${clickX} Y: ${clickY}`);
 
         }
     }
-    
-    // const coOrdinateclicks = (posX, posY) => {
-    //     setMenuPopup(true);
-    //     const dropDown = document.getElementById("dropDownSelect");
-    //     console.log("x: " + posX + " y: " + posY)
-    //     Object.assign(dropDown.style, {
-    //         left: `${posX}px`,
-    //         top: `${posY}px`,
-    //         // display: 'block',
-    //     })
-    // }
-    
 
     return (
     <>
@@ -65,19 +44,20 @@ function HomePage () {
         <h1>Image</h1>
     </div>
         <div className="mainContent">
-            <div className='mainImg' onClick={(e) => imgSize(e)}>
-                <img src={icon}/>
+            <div className='mainImg'>
+                <img src={icon} onClick={(e) => searchPointer(e)}/>
                 { menuPopup ? (
                     <>
                     <div className='dropDownSelect' style={{ left: `${clickX}px`, top: `${clickY}px`}}>
                     <div  className='imagePointer'>
                         {/* <img src=''/> */}
                     </div>
-                    <div className='dropDown'>
+                    <div className='dropDown' onClick={(e) => e.stopPropagation()}>
                         <ul>
                             <li>A</li>
                             <li>B</li>
                             <li>C</li>
+                            <li onClick={() => setMenuPopup(false)}>Close</li>
                         </ul>
                     </div>
                     </div>
