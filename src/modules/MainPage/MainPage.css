@@ -9,6 +9,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    align-items: center;
   }
 
   .postSection {
@@ -29,10 +30,6 @@
     text-align: left;
   }
 
-  .homePageTitle {
-    margin-bottom: 50px;
-  }
-
   .mainImg {
     /* height: 1000px;
     width: 1000px; */
@@ -42,6 +39,8 @@
   .mainImg img {
     border: 1px black solid;
     /* position: relative; */
+    max-width: 1250px;
+    height: auto;
   }
 
   .imagePointer {
@@ -60,6 +59,7 @@
     width: 100px;
     height: fit-content;
     border: 1px black solid;
+    background-color: white;
   }
 
   ul {
@@ -67,4 +67,17 @@
   text-align: left;
   padding: 2px;
   margin: 0;
+  }
+
+  .figures {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+  }
+
+  .figure img {
+    height: 90px;
+    width: auto;
+    margin: 5px;
   }

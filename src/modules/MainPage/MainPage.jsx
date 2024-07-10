@@ -1,8 +1,7 @@
-// import {useState, useEffect} from "react";
 import { useState } from 'react';
+import {useParams} from 'react-router-dom';
 import './MainPage.css';
-// import { Link } from 'react-router-dom';
-import icon from "/src/assets/github_icon.svg";
+const level = "/src/assets/levels";
 
 function HomePage () {
     const [imgHeight, setImgHeight] = useState(0);
@@ -10,6 +9,7 @@ function HomePage () {
     const [clickX, setClickX] = useState(0);
     const [clickY, setClickY] = useState(0);
     const [menuPopup, setMenuPopup] = useState(false);
+    const { levelId } = useParams();
 
     const searchPointer = (el) => {
         if (!el) {
@@ -33,6 +33,7 @@ function HomePage () {
 
 
         console.log(`Size: Height ${imgHeight} Width ${imgWidth} Co Ords: X: ${clickX} Y: ${clickY}`);
+        console.log("level ID" + levelId);
 
         }
     }
@@ -41,11 +42,25 @@ function HomePage () {
     <>
     <div className="mainSection">
     <div className="homePageTitle">
-        <h1>Image</h1>
+        <h2>Find the figures!</h2>
     </div>
         <div className="mainContent">
+            <div className='figures'>
+                <div className='figure'>
+                <img src={level + `/${levelId}/figures/1.jpg`}/>
+                {/* description */}
+                </div>
+                <div className='figure'>
+                <img src={level + `/${levelId}/figures/2.jpg`}/>
+                {/* description */}
+                </div>
+                <div className='figure'>
+                <img src={level + `/${levelId}/figures/3.jpg`}/>
+                {/* description */}
+                </div>
+            </div>
             <div className='mainImg'>
-                <img src={icon} onClick={(e) => searchPointer(e)}/>
+                <img src={level + `/${levelId}/${levelId}.jpg`} onClick={(e) => searchPointer(e)}/>
                 { menuPopup ? (
                     <>
                     <div className='dropDownSelect' style={{ left: `${clickX}px`, top: `${clickY}px`}}>
