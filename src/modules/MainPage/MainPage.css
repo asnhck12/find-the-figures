@@ -31,14 +31,11 @@
   }
 
   .mainImg {
-    /* height: 1000px;
-    width: 1000px; */
     border: 1px black solid;
   }
 
   .mainImg img {
     border: 1px black solid;
-    /* position: relative; */
     max-width: 1250px;
     height: auto;
   }
@@ -51,7 +48,6 @@
 
   .dropDownSelect {
     display: block;
-    /* flex-direction: row; */
     position: absolute;
   }
 
@@ -73,11 +69,24 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    
+    gap: 5px;
+  }
+
+  .figure {
+    display: flex;
+    flex-flow: column;
+    border: 1px black solid;
   }
 
   .figure img {
     height: 90px;
     width: auto;
     margin: 5px;
+  }
+
+  .figureLocation {
+    border: 1px black solid;
+    position: absolute;
+    width: 20px;
+    height: 40px;
   }
