@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import {Link, useParams} from 'react-router-dom';
 import './MainPage.css';
 import LevelLoading from './LevelLoading';
+import Timer from './Timer';
 const level = "/src/assets/levels";
 
 function HomePage () {
@@ -19,20 +20,48 @@ function HomePage () {
     const [f3X, setF3X] = useState(0);
     const [f3Y, setF3Y] = useState(0);
     const mainImage = useRef(null);
+    const [currentFigure, setCurrentFigure] = useState("");
+    const [foundCount, setFoundCount] = useState(0);
+    const [foundFigures, setFoundFigures] = useState([]);
+    const [completed, setCompleted] = useState(false);
+    const [styles, setStyles] = useState({});
+    const [status, setStatus] = useState(true);
+
+
+    useEffect (() => {
+        if (foundFigures.length === 3) {
+            console.log("All found");
+            setCompleted(true);
+        }
+    }, [foundFigures]);
+
+    useEffect(() => {
+        if(completed) {
+            setStatus(false);
+            console.log("status: " + status)
+        }
+        else {
+            console.log("Time continue")
+        }
+    }, [completed])
+
+    useEffect(() => {
+        if (!menuPopup) {
+            setCurrentFigure("");
+        }
+    }, [menuPopup])
 
     useEffect(() => {
         const fetchLevelData = async () => {
             const data = await LevelLoading(levelId);
             setLevelLoad(data);            
         }
-
         fetchLevelData();
     }, [levelId]);
 
     useEffect(() => {
         if (levelLoad.length === 0) return;
         const boundClient = mainImage.current.getBoundingClientRect();
-
         updateFigurePositions(boundClient);   
     }, [levelLoad]);
   
@@ -75,6 +104,25 @@ function HomePage () {
         }
     } , [updateFigurePositions]);
 
+    const figureSelect = (menuOption) => {
+        if (menuOption === currentFigure) {
+            if (!foundFigures.includes(menuOption)) {
+                setFoundCount(foundCount+1);
+                setFoundFigures([...foundFigures, currentFigure]);
+                const styleUpdate = {};
+                styleUpdate[menuOption] = { border: "3px green solid"};
+                setStyles(prevStyles => ({ ...prevStyles, ...styleUpdate}))                            
+            }
+            else {
+                console.log("Already selected");
+            }
+        }
+        else {
+            console.log("doesnt match");
+        }
+        setMenuPopup(false);
+    }
+
     useEffect(() => {
         const handleResize = () => {
             collectValues();
@@ -98,6 +146,7 @@ function HomePage () {
         setClickX(xPointer);
         setClickY(yPointer);
         setMenuPopup(true);
+
         }
     }
 
@@ -110,18 +159,21 @@ function HomePage () {
     <div className="mainSection">
     <div className="homePageTitle">
         <h2>Find the figures!</h2>
+        <div className='timer'>
+            <Timer status={status}/>
+        </div>
     </div>
         <div className="mainContent">
             <div className='figures'>
-                <div className='figure'>
+                <div className='figure' style={styles.figure1}>
                 <img src={level + `/${levelId}/figures/1.jpg`}/>
                 {levelLoad[0]?.description}
                 </div>
-                <div className='figure'>
+                <div className='figure' style={styles.figure2}>
                 <img src={level + `/${levelId}/figures/2.jpg`}/>
                 {levelLoad[1]?.description}
                 </div>
-                <div className='figure'>
+                <div className='figure' style={styles.figure3}>
                 <img src={level + `/${levelId}/figures/3.jpg`}/>
                 {levelLoad[2]?.description}
                 </div>
@@ -132,28 +184,23 @@ function HomePage () {
                     <>
                     <div className='dropDownSelect' style={{ left: `${clickX}px`, top: `${clickY}px`}}>
                     <div  className='imagePointer'>
-                        {/* <img src=''/> */}
                     </div>
                     <div className='dropDown' onClick={(e) => e.stopPropagation()}>
                         <ul>
-                            <Link><li>{levelLoad[0]?.description}</li></Link>
-                            <Link><li>{levelLoad[1]?.description}</li></Link>
-                            <Link><li>{levelLoad[2]?.description}</li></Link>
-                            <Link onClick={() => setMenuPopup(false)}><li>Close</li></Link>
+                            <Link onClick={() => {figureSelect("figure1")}}><li className={levelLoad[0]?.character}>{levelLoad[0]?.description}</li></Link>
+                            <Link onClick={() => {figureSelect("figure2")}}><li className={levelLoad[1]?.character}>{levelLoad[1]?.description}</li></Link>
+                            <Link onClick={() => {figureSelect("figure3")}}><li className={levelLoad[2]?.character}>{levelLoad[2]?.description}</li></Link>
+                            <Link onClick={() => setMenuPopup(false)}><li className='closeOption'>Close</li></Link>
                         </ul>
                     </div>
                     </div>
-
                     </> ) : null}
                     <div className='figureLocations'>
-                        <div className='figureLocation'  style={{ left: `${f1X}px`, top: `${f1Y}px`}} onClick={() => console.log("Figure 1")}>
-
+                        <div className={"figureLocation"}  style={{ ...styles.figure1, left: `${f1X}px`, top: `${f1Y}px`}} onClick={() => (setCurrentFigure("figure1"))}>
                         </div>
-                        <div className='figureLocation'  style={{ left: `${f2X}px`, top: `${f2Y}px`}} onClick={() => console.log("Figure 1")}>
-
+                        <div className={"figureLocation"}  style={{ ...styles.figure2, left: `${f2X}px`, top: `${f2Y}px`}} onClick={() => (setCurrentFigure("figure2"))}>
                         </div>
-                        <div className='figureLocation'  style={{ left: `${f3X}px`, top: `${f3Y}px`}} onClick={() => console.log("Figure 1")}>
-
+                        <div className={"figureLocation"}  style={{ ...styles.figure3, left: `${f3X}px`, top: `${f3Y}px`}} onClick={() => (setCurrentFigure("figure3"))}>
                         </div>
 
                     </div>
