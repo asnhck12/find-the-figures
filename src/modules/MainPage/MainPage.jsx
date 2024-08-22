@@ -3,7 +3,7 @@ import {Link, useParams} from 'react-router-dom';
 import './MainPage.css';
 import LevelLoading from './LevelLoading';
 import Timer from './Timer';
-const level = "/src/assets/levels";
+const level = "/public/assets/levels";
 
 function HomePage () {
     const [imgHeight, setImgHeight] = useState(0);
