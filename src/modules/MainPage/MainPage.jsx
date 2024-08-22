@@ -30,7 +30,6 @@ function HomePage () {
 
     useEffect (() => {
         if (foundFigures.length === 3) {
-            console.log("All found");
             setCompleted(true);
         }
     }, [foundFigures]);
@@ -38,7 +37,6 @@ function HomePage () {
     useEffect(() => {
         if(completed) {
             setStatus(false);
-            console.log("status: " + status)
         }
         else {
             console.log("Time continue")

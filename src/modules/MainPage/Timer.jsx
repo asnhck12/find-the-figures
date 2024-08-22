@@ -10,12 +10,13 @@ function Timer ({status}) {
 
     const navigate = useNavigate();
 
+    const DB_URL = import.meta.env.VITE_DB_URL;
+
     useEffect(() => {
         const scoreBoard = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/location/${levelId}/time`);
+                const response = await fetch(`${DB_URL}/location/${levelId}/time`);
                 const responseData = await response.json();
-                console.log("Fetched times:", responseData);
                 setPlayerScores(responseData);
             } catch (error) {
                 console.log("error fetching times", error);
@@ -34,7 +35,7 @@ function Timer ({status}) {
 
         }
         try {
-            const response = await fetch(`http://localhost:3000/location/${levelId}/time/submit`, {
+            const response = await fetch(`${DB_URL}/location/${levelId}/time/submit`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -57,7 +58,6 @@ function Timer ({status}) {
             navigate('/');
         } catch (error) {
             console.error('Error submitting post:', error);
-            console.log('post:', newTime);
         }
     }
 
@@ -66,7 +66,8 @@ function Timer ({status}) {
 
         if (status) {
             interval = setInterval(() => {setTime(prevTime => prevTime + 1);}, 10);
-        } else {
+        } 
+        else {
             console.log("Time paused at: " + time);        
         }
 
