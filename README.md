@@ -1,10 +1,8 @@
 # Find the Figures
 
-A Where's Wally clone created using MERN, where it consists of four levels, each level consists of finding three figures in the main image.
+A Where's Wally clone created using MERN, where it consists of four levels, each level more difficult. There are three figures to find in each level, with the attempt being timed.
 
-Each level increases in difficulty.
-
-The Backend stores the images location, names and the best times.
+The Backend stores the image locations, figure names and the best times.
 
 The Backend code can be accessed here: https://github.com/asnhck12/find-the-figures-backend
 
