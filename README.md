@@ -1,8 +1,11 @@
-# React + Vite
+# Find the Figures
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Where's Wally clone created using MERN, where it consists of four levels, each level consists of finding three figures in the main image.
 
-Currently, two official plugins are available:
+Each level increases in difficulty.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Backend stores the images location, names and the best times.
+
+The Backend code can be accessed here: https://github.com/asnhck12/find-the-figures-backend
+
+The Live App can be accessed here: https://find-the-figures.vercel.app/
